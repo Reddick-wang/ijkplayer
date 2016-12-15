@@ -65,7 +65,9 @@ IJKSampleAspectRatioMake(NSInteger numerator, NSInteger denominator)
 }
 @end
 
-
+/*
+ what the fuck is this?
+ */
 @interface IJKFFMoviePlayerMessagePool : NSObject
 
 - (IJKFFMoviePlayerMessagePool *)init;

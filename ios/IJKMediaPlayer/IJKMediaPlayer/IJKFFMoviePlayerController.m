@@ -168,9 +168,9 @@ void IJKFFIOStatCompleteRegister(void (*cb)(const char *url,
     self = [super init];
     if (self) {
         ijkmp_global_init();
+        //TODO
         ijkmp_global_set_inject_callback(ijkff_inject_callback);
 
-        [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:NO];
 
         if (options == nil)
             options = [IJKFFOptions optionsByDefault];

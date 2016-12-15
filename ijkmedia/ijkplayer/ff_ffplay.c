@@ -3107,7 +3107,7 @@ void ffp_global_init()
         return;
 
     /* register all codecs, demux and protocols */
-    avcodec_register_all();
+    avcodec_register_all(); /*注册所有编码器*/
 #if CONFIG_AVDEVICE
     avdevice_register_all();
 #endif
@@ -3119,10 +3119,17 @@ void ffp_global_init()
     ijkav_register_all();
 
     avformat_network_init();
-
+    /*
+     使用多个线程同时播放多个视频源的时候，在调用avcodec_open/close的时候，可能导致失败，这个可以查阅ffmpeg的源码分析其中的原因，失败的主要原因是在调用此2函数时，ffmpeg为了确保该2函数为原子操作，在avcodec_open/close两函数的开头和结尾处使用了一个变量entangled_thread_counter来记录当前函数是否已经有其他线程进入，如果有其他线程正在此2函数内运行，则会调用失败。
+     av_lockmgr_register()注册一个运行时锁，当一个线程进入此2函数内时，ffmpeg会调用回调函数锁定该段代码，不让其他函数进入
+     */
     av_lockmgr_register(lockmgr);
+    /*
+     使用ffmpeg静态库做二次开发的时候，如果不是控制台应用程序，又需要查看ffmpeg的日志信息
+     */
     av_log_set_callback(ffp_log_callback_brief);
 
+    //不知道要干什么
     av_init_packet(&flush_pkt);
     flush_pkt.data = (uint8_t *)&flush_pkt;
 
