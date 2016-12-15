@@ -69,7 +69,6 @@
     [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_INFO];
 #endif
 
-    [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
     // [IJKFFMoviePlayerController checkIfPlayerVersionMatch:YES major:1 minor:0 micro:0];
 
     IJKFFOptions *options = [IJKFFOptions optionsByDefault];
